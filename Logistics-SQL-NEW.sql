@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 08, 2017 at 09:32 PM
+-- Generation Time: Aug 12, 2017 at 12:27 AM
 -- Server version: 5.7.18
 -- PHP Version: 7.1.7
 
@@ -45,9 +45,16 @@ CREATE TABLE `address` (
 
 CREATE TABLE `auth_assignment` (
   `created_at` int(11) DEFAULT NULL,
-  `auth_rule_name` varchar(64) NOT NULL,
-  `user_id` int(11) NOT NULL
+  `user_id` int(11) NOT NULL,
+  `item_name` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `auth_assignment`
+--
+
+INSERT INTO `auth_assignment` (`created_at`, `user_id`, `item_name`) VALUES
+(NULL, 1, 'Super User');
 
 -- --------------------------------------------------------
 
@@ -63,8 +70,16 @@ CREATE TABLE `auth_item` (
   `created_at` varchar(45) DEFAULT NULL,
   `updated_at` varchar(45) DEFAULT NULL,
   `rule_name` varchar(64) DEFAULT NULL,
-  `auth_rule_name` varchar(64) NOT NULL
+  `auth_rule_name` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `auth_item`
+--
+
+INSERT INTO `auth_item` (`name`, `type`, `description`, `data`, `created_at`, `updated_at`, `rule_name`, `auth_rule_name`) VALUES
+('Super User', 1, NULL, NULL, NULL, NULL, NULL, NULL),
+('Volunteer', 1, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -194,7 +209,7 @@ INSERT INTO `disaster_type` (`id`, `name`, `timestamp`, `description`) VALUES
 (2, 'Hurricanes and Tropical Storms', '08-07-2017', NULL),
 (3, 'Floods', '08-07-2017', 'They occur when land that is normally dry experiences an overflow of water. Several events cause floods, including hurricanes and tropical storms, failed dams or levees, and flash floods that occur within a few minutes or hours of excessive rainfall.'),
 (4, 'Wildfires', '08-07-2017', 'Wildfires are usually triggered by lightning or accidents and often go unnoticed at first. They can spread quickly and are especially destructive if they occur near forests, rural areas, remote mountain sites, and other woodland settings where people live. While not reported as often as floods or tornadoes and severe storms, they, too, can cause emotional distress in people living in affected areas.'),
-(5, 'Earthquakes', '08-07-2017', 'An earthquake is the shifting of the Earthâ€™s plates, which results in a sudden shaking of the ground that can last for a few seconds to a few minutes. Within seconds, mild initial shaking can strengthen and become violent. Earthquakes happen without warning and can happen at any time of year.'),
+(5, 'Earthquakes', '08-07-2017', 'An earthquake is the shifting of the EarthÃ¢â‚¬â„¢s plates, which results in a sudden shaking of the ground that can last for a few seconds to a few minutes. Within seconds, mild initial shaking can strengthen and become violent. Earthquakes happen without warning and can happen at any time of year.'),
 (6, 'Drought', '08-07-2016', 'A drought is a normal, reoccurring weather event that can vary in intensity and duration by region of the country and even by location within a state. Drought occurs when there is lower than average precipitation over a significant period of time, usually a season or more. Other causes of drought can be a delay in the rainy season or the timing of rain in relation to crop growth.'),
 (7, 'Agricultural diseases & pests', '08-07-2016', NULL),
 (8, 'Damaging Winds', '08-07-2016', NULL),
@@ -631,6 +646,15 @@ CREATE TABLE `user` (
   `user_type` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `user_type`) VALUES
+(1, 'jcheramia', 'X0-pESM2VklhTvovRuZhT06-qHOSENIo', '$2y$13$ec9/2/II0IIVEZd11MgluuuD6p7k/NPsKIB.o47qLfwDdssgH/p.C', NULL, 'johannaheramia@gmail.com', 10, '1502522295', '1502522295', 2),
+(2, 'jgtadeo', 'fe3Pugc_t3a21MPDFXrVtGTkyJdtlXed', '$2y$13$NkY8KCbAUWIH3quJ8RUjme5WriQz1bn9qJAWVcU7YwxgtdF3dPuI6', NULL, 'renzotadeo26@gmail.com', 10, '1502522548', '1502522548', 1),
+(3, 'jggardon', 'AMZuQXyBWCUFTzv4U4I5EE8wuT6BPlDL', '$2y$13$sRcQMXiqJvlNGai1r6wcQ.7u0xF0NyJCqvn9Fqa1nasKmIW0OX8ay', NULL, 'janamarie.gardon@gmail.com', 10, '1502522582', '1502522582', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -667,6 +691,18 @@ CREATE TABLE `user_type` (
   `timestamp` varchar(25) DEFAULT NULL,
   `description` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_type`
+--
+
+INSERT INTO `user_type` (`id`, `name`, `timestamp`, `description`) VALUES
+(1, 'Volunteer', '08-11-2017', ''),
+(2, 'Super User', '08-11-2017', ''),
+(3, 'Barangay', '08-11-2017', ''),
+(4, 'City/Municipal', '08-11-2017', ''),
+(5, 'Regional', '08-11-2017', ''),
+(6, 'Provincial', '08-11-2017', '');
 
 -- --------------------------------------------------------
 
@@ -816,7 +852,7 @@ CREATE TABLE `warehouse_category` (
 INSERT INTO `warehouse_category` (`id`, `name`, `timestamp`, `description`) VALUES
 (1, 'Public Warehouse', '08-06-2017', 'Owned and operated by private individuals for renting purpose. Those who open a public warehouse use it as hire to any interested persons and groups who paid rent fee to the owner of the warehouse.'),
 (2, 'Manufacturer Warehouse', '08-06-2017', 'Owned and controlled by producers or companies who are into the production of goods. The companies or producers established the warehouse in order to store their goods after production until they are needed.'),
-(3, 'Bonded Warehouse', '08-06-2017', 'Used to store goods whose duty is are not yet paid. Once the owner of the goods settle the custom duty a release ï¿½warrantï¿½ will be issued by custom authorities. This document empowers its holder the goods named on it. This warehouse is normally located at the borders and operated by the custom authority.'),
+(3, 'Bonded Warehouse', '08-06-2017', 'Used to store goods whose duty is are not yet paid. Once the owner of the goods settle the custom duty a release Ã¯Â¿Â½warrantÃ¯Â¿Â½ will be issued by custom authorities. This document empowers its holder the goods named on it. This warehouse is normally located at the borders and operated by the custom authority.'),
 (4, 'Whosesale Warehouse', '08-06-2017', 'Owned and controlled by the wholesaler for storing goods after purchase from the producers until they are sold to retailers or directly to the final consumers. The wholesaler buy in bulk from the producers and sell in small units to the retailer therefore, the wholesaler break the bulk of goods purchased and kept them in the warehouse until they bought.'),
 (5, 'Overseas Warehouse', '08-06-2017', 'These catered for the overseas trade. They became the meeting places for overseas wholesale buyers where printed and plain could be discussed and ordered.'),
 (6, 'Packing Warehouse', '08-06-2017', 'The main purpose of packing warehouses was the picking, checking, labelling and packing of goods for export.'),
@@ -826,7 +862,7 @@ INSERT INTO `warehouse_category` (`id`, `name`, `timestamp`, `description`) VALU
 (10, 'Distribution Center', '08-06-2017', 'For temporary activity. These warehouses serve as points in the distribution system at which products are received from many suppliers and quickly shipped out to many customers (e.g. Perishable goods enters in morning and distributed by the end of the day).'),
 (11, 'State Warehouse', '08-06-2017', 'Created by the government to store contraband or smuggled goods seized by the custom authority.'),
 (12, 'Sorting and Consolidation Warehouses: ', NULL, 'his warehouse type is not principally used for storage, but rather for receiving large inbound shipments and then breaking them down into smaller outbound loads. They might also be used for consolidating small inbound shipments into larger ones for dispatch to customers such as retail chains.'),
-(13, 'Storage Warehouses', NULL, ' This warehouse type is often used for long-term storage of finished goods as part of a companyâ€™s outbound supply chain operation.Storage warehouses are also used by companies specializing in maintenance, repair, and similar activities where parts and equipment need to be stored ready for use when required.');
+(13, 'Storage Warehouses', NULL, ' This warehouse type is often used for long-term storage of finished goods as part of a companyÃ¢â‚¬â„¢s outbound supply chain operation.Storage warehouses are also used by companies specializing in maintenance, repair, and similar activities where parts and equipment need to be stored ready for use when required.');
 
 -- --------------------------------------------------------
 
@@ -869,8 +905,9 @@ ALTER TABLE `address`
 -- Indexes for table `auth_assignment`
 --
 ALTER TABLE `auth_assignment`
-  ADD PRIMARY KEY (`auth_rule_name`,`user_id`),
-  ADD KEY `fk_auth_assignment_user1_idx` (`user_id`);
+  ADD PRIMARY KEY (`user_id`,`item_name`),
+  ADD KEY `fk_auth_assignment_user1_idx` (`user_id`),
+  ADD KEY `fk_auth_assignment_auth_item1_idx` (`item_name`);
 
 --
 -- Indexes for table `auth_item`
@@ -1307,12 +1344,12 @@ ALTER TABLE `unit_of_measurement`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user_type`
 --
 ALTER TABLE `user_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `vehicle_category`
 --
@@ -1360,7 +1397,7 @@ ALTER TABLE `address`
 -- Constraints for table `auth_assignment`
 --
 ALTER TABLE `auth_assignment`
-  ADD CONSTRAINT `fk_auth_assignment_auth_rule1` FOREIGN KEY (`auth_rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_auth_assignment_auth_item1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_auth_assignment_user1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
