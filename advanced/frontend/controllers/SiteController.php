@@ -32,7 +32,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error', 'signup', 'list_province', 'list_city', 'list_barangay'],
+                        'actions' => ['login', 'error', 'signup'],
                         'allow' => true,
                         'roles' => ['?']
                     ],
@@ -216,39 +216,6 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
-    }
-
-    public function actionList_province($id){
-
-        $countprovince = Province::find()->where(['region' => $id])->count();
-        $province = Province::find()->where(['region' => $id])->orderBy('name DESC')->all();
-        if($countprovince > 0){
-            foreach ($province as $result) echo "<option value = '".$result->name."'>".$result->name."</option>";
-        }else{
-            echo "<option>-</option>";
-        }
-    }
-
-    public function actionList_city($id){
-
-        $countcity = CityMunicipal::find()->where(['province' => $id])->count();
-        $city_municipal = CityMunicipal::find()->where(['province' => $id])->orderBy('name DESC')->all();
-        if($countcity > 0){
-            foreach ($city_municipal as $result) echo "<option value = '".$result->name."'>".$result->name."</option>";
-        }else{
-            echo "<option>-</option>";
-        }
-    }
-
-    public function actionList_barangay($id){
-
-        $countbarangay = Barangay::find()->where(['city_municipal' => $id])->count();
-        $barangay = Barangay::find()->where(['city_municipal' => $id])->orderBy('name DESC')->all();
-        if($countbarangay > 0){
-            foreach ($barangay as $result) echo "<option value = '".$result->name."'>".$result->name."</option>";
-        }else{
-            echo "<option>-</option>";
-        }
     }
 
 

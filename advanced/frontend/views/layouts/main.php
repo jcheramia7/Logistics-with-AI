@@ -153,7 +153,7 @@ AppAsset::register($this);
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs"><?php echo Yii::$app->user->identity->username  ?></span>
+                            <span class="hidden-xs"></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -161,8 +161,8 @@ AppAsset::register($this);
                                 <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                                 <p>
-                                    <b><?php echo Yii::$app->user->identity->first_name; ?> <?php echo Yii::$app->user->identity->last_name; ?></b>  <br>
-                                    <?php echo Yii::$app->user->identity->type; ?>
+                                    <b> </b>  <br>
+
                                     <small>Member since April 1, 2017</small>
                                 </p>
                             </li>
@@ -196,9 +196,7 @@ AppAsset::register($this);
                     <img src="img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p><?php echo
-                            Yii::$app->user->identity->username;
-                        ?></p>
+                    <p></p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>

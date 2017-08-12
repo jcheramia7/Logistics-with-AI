@@ -144,17 +144,6 @@ class UserController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
-            $userId = $model->id;
-            $image_user = UploadedFile::getInstance($model, 'image');
-            $imageName = 'user_' . $userId . '.' . $image_user->getExtension();
-            $image_user->saveAs(Yii::getAlias('@userImgPath').'/'.$imageName);
-            $model->image = $imageName;
-            $model->save();
-            /*echo '<pre>';
-            print_r($image);
-            exit;
-            echo '</pre>';*/
-
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

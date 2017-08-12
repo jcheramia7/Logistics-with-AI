@@ -18,8 +18,8 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'status', 'total_user'], 'integer'],
-            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'created_at', 'updated_at', 'first_name', 'middle_name', 'last_name', 'contact', 'marital_status', 'active_inactive', 'birth_year', 'organization', 'type', 'barangay', 'city_municipal', 'province', 'region'], 'safe'],
+            [['id', 'status'], 'integer'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'created_at', 'updated_at', 'user_type'], 'safe'],
         ];
     }
 
@@ -63,8 +63,7 @@ class UserSearch extends User
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'birth_year' => $this->birth_year,
-            'total_user' => $this->total_user,
+            'user_type' => $this->user_type,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])
@@ -72,18 +71,7 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'first_name', $this->first_name])
-            ->andFilterWhere(['like', 'middle_name', $this->middle_name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name])
-            ->andFilterWhere(['like', 'contact', $this->contact])
-            ->andFilterWhere(['like', 'marital_status', $this->marital_status])
-            ->andFilterWhere(['like', 'active_inactive', $this->active_inactive])
-            ->andFilterWhere(['like', 'organization', $this->organization])
-            ->andFilterWhere(['like', 'type', $this->type])
-            ->andFilterWhere(['like', 'barangay', $this->barangay])
-            ->andFilterWhere(['like', 'city_municipal', $this->city_municipal])
-            ->andFilterWhere(['like', 'province', $this->province])
-            ->andFilterWhere(['like', 'region', $this->region]);
+            ->andFilterWhere(['like', 'region', $this->user_type]);
 
         return $dataProvider;
     }

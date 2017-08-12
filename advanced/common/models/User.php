@@ -1,46 +1,35 @@
 <?php
+
 namespace common\models;
 
 use Yii;
-use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
+ * This is the model class for table "user".
  *
  * @property integer $id
  * @property string $username
+ * @property string $auth_key
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $email
- * @property string $auth_key
  * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
- * @property string first_name
- * @property string middle_name
- * @property string last_name
- * @property string contact
- * @property string marital_status
- * @property string active_inactive
- * @property string birth_year
- * @property string organization
- * @property string type
- * @property integer total_user
- * @property string barangay
- * @property string city_municipal
- * @property string province
- * @property string region
- * @property string image
+ * @property string $created_at
+ * @property string $updated_at
+ * @property integer $user_type
+ *
+ * @property AuthAssignment[] $authAssignments
+ * @property AuthRule[] $authRuleNames
+ * @property UserType $userType
+ * @property UserInfo $userInfo
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
-
 
     /**
      * @inheritdoc
@@ -66,17 +55,16 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-
-            [['barangay'], 'exist', 'skipOnError' => true, 'targetClass'=> Barangay::className(), 'targetAttribute' => ['barangay'=>'name']],
+            [['username', 'email', 'user_type'], 'required'],
+            [['status', 'user_type'], 'integer'],
+            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['created_at', 'updated_at'], 'string', 'max' => 10],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
+            [['user_type'], 'exist', 'skipOnError' => true, 'targetClass' => UserType::className(), 'targetAttribute' => ['user_type' => 'id']],
         ];
     }
-
-    /**
-     * @inheritdoc
-     */
-
 
     /**
      * @inheritdoc
@@ -139,8 +127,6 @@ class User extends ActiveRecord implements IdentityInterface
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
-
-
 
     /**
      * @inheritdoc
@@ -210,19 +196,36 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuthAssignments()
+    {
+        return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBarangay()
+    public function getAuthRuleNames()
     {
-        return $this->hasOne(Barangay::className(), ['name' => 'barangay']);
+        return $this->hasMany(AuthRule::className(), ['name' => 'auth_rule_name'])->viaTable('auth_assignment', ['user_id' => 'id']);
     }
 
-    public function getCityMunicipal(){
-        return $this->hasOne(CityMunicipal::className(), ['name' => 'city_municipal']);
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserType()
+    {
+        return $this->hasOne(UserType::className(), ['id' => 'user_type']);
     }
 
-
-
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserInfo()
+    {
+        return $this->hasOne(UserInfo::className(), ['user_id' => 'id']);
+    }
 }
