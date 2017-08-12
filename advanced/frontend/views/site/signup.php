@@ -53,50 +53,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]);?>
                     </div>
 
-                    <!--<div class="col-md-4">
-                                <?/*= $form->field($model, 'image')->fileInput() */?>
-                            </div>-->
-
-                    <!--<div class="col-md-4">
-                                <?/*= $form->field($model, 'type')->dropDownList(
-                                    [ 'National' => 'National', 'Regional' => 'Regional', 'Municipal' => 'Municipal', 'External' => 'External'], ['prompt' => 'Select Type of the user']) */?>
-                            </div>-->
-
-                    <!--<div class="col-md-3">
-                                <?/*= $form->field($model, 'region')->dropDownList(
-                                    ArrayHelper::map(Region::find()->all(), 'name', 'name'),
-                                    [
-                                        'prompt' => 'Select Region',
-                                        'onchange' => '$.post("index.php?r=site/list_province&id='.'"+$(this).val(),function(data){
-                                    $("select#province").html(data);
-                                });'
-                                    ]);*/?>
-                    </div>
-
-                    <div class="col-md-3">
-                        <?/*= $form->field($model, 'province')->dropDownList(
-                            ArrayHelper::map(Province::find()->all(), 'name', 'name'),
-                            [
-                                'prompt' => 'Select Province',
-                                'id' => 'province',
-                                'onchange' => '$.post("index.php?r=site/list_city&id='.'"+$(this).val(),function(data){
-                            $("select#city_municipal").html(data);
-                        });'
-                            ]);*/?>
-                    </div>
-
-                    <div class="col-md-3">
-                        <?/*= $form->field($model, 'city_municipal')->dropDownList(
-                            ArrayHelper::map(CityMunicipal::find()->all(), 'name', 'name'),
-                            [
-                                'prompt' => 'Select City / Municipal',
-                                'id' => 'city_municipal',
-                                'onchange' => '$.post("index.php?r=site     /list_barangay&id='.'"+$(this).val(),function(data){
-                            $("select#barangay").html(data);
-                        });'
-                            ]);*/?>
-                    </div>-->
-
                     <div class="form-group">
                         <?= Html::submitButton('Signup', ['class' => 'btn btn-primary center', 'name' => 'signup-button']) ?>
                     </div>

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
@@ -22,7 +23,7 @@ use yii\web\IdentityInterface;
  * @property integer $user_type
  *
  * @property AuthAssignment[] $authAssignments
- * @property AuthRule[] $authRuleNames
+ * @property AuthItem[] $itemNames
  * @property UserType $userType
  * @property UserInfo $userInfo
  */
@@ -55,13 +56,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'email', 'user_type'], 'required'],
-            [['status', 'user_type'], 'integer'],
-            [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
-            [['auth_key'], 'string', 'max' => 32],
-            [['created_at', 'updated_at'], 'string', 'max' => 10],
-            [['username'], 'unique'],
-            [['email'], 'unique'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+
             [['user_type'], 'exist', 'skipOnError' => true, 'targetClass' => UserType::className(), 'targetAttribute' => ['user_type' => 'id']],
         ];
     }
@@ -196,7 +193,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
-    
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -208,9 +205,9 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAuthRuleNames()
+    public function getItemNames()
     {
-        return $this->hasMany(AuthRule::className(), ['name' => 'auth_rule_name'])->viaTable('auth_assignment', ['user_id' => 'id']);
+        return $this->hasMany(AuthItem::className(), ['name' => 'item_name'])->viaTable('auth_assignment', ['user_id' => 'id']);
     }
 
     /**
