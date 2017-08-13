@@ -5,11 +5,9 @@ namespace frontend\controllers;
 use Yii;
 use common\models\User;
 use common\models\UserSearch;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -22,16 +20,6 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['logout', 'index', 'create', 'update', 'view', 'regionaladmin', 'externaladmin', 'citymunicipaladmin', 'nationaladmin'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -57,71 +45,6 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all User models.
-     * @return mixed
-     */
-    public function actionRegionaladmin()
-    {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['type'=>'Regional']);
-
-        return $this->render('regionaladmin', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Lists all User models.
-     * @return mixed
-     */
-    public function actionExternaladmin()
-    {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['type'=>'External']);
-
-        return $this->render('externaladmin', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Lists all User models.
-     * @return mixed
-     */
-    public function actionCitymunicipaladmin()
-    {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['type'=>'Municipal']);
-
-        return $this->render('citymunicipaladmin', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Lists all User models.
-     * @return mixed
-     */
-    public function actionNationaladmin()
-    {
-        $searchModel = new UserSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->query->andFilterWhere(['type'=>'National']);
-
-        return $this->render('nationaladmin', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-
-    /**
      * Displays a single User model.
      * @param integer $id
      * @return mixed
@@ -142,9 +65,7 @@ class UserController extends Controller
     {
         $model = new User();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->save();
-
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -200,6 +121,4 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-
 }

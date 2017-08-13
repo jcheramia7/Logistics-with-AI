@@ -1,5 +1,9 @@
 <?php
 
+use common\models\DeliveryStatus;
+use common\models\User;
+use kartik\date\DatePicker;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,7 +18,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'date_requested')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'date_needed')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'date_needed')->widget(DatePicker::className(), [
+        'readonly' => true,
+        'removeButton' => false,
+        'pluginOptions' => [
+            'autoclose' => false,
+            'todayHighlight' => true,
+            'format' => 'mm/dd/yyyy',
+            'startDate' => "mm/dd/yyyy",
+            'clearBtn' => true
+        ]
+    ]); ?>
 
     <?= $form->field($model, 'quantity')->textInput(['maxlength' => true]) ?>
 
@@ -23,8 +37,19 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'tracking_number')->textInput() ?>
 
     <?= $form->field($model, 'delivery_status')->textInput() ?>
+    <?= $form->field($model, 'delivery_status')->dropDownList(
+        ArrayHelper::map(DeliveryStatus::find()->all(), 'id', 'name'),
+        [
+            'prompt' => 'Select Delivery Status',
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
+        ]);?>
+
+    <?= $form->field($model, 'user_id')->dropDownList(
+        ArrayHelper::map(User::find()->all(), 'id', 'username'),
+        [
+            'prompt' => 'Select User',
+
+        ]);?>
 
     <?= $form->field($model, 'address_barangay_id')->textInput(['maxlength' => true]) ?>
 

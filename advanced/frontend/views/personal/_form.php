@@ -1,5 +1,7 @@
 <?php
 
+use common\models\Address;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -27,10 +29,17 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'sex')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'nationality')->textInput() ?>
+    <?= $form->field($model, 'nationality')->dropDownList([ 'Filipino' => 'Filipino', 'American' => 'American' ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'contact_number')->textInput() ?>
 
     <?= $form->field($model, 'address_barangay_id')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'address_barangay_id')->dropDownList(
+        ArrayHelper::map(Address::find()->all(), 'id', 'name'),
+        [
+            'prompt' => 'Select Barangay',
+
+        ]);?>
 
     <?= $form->field($model, 'address_city_municipal_id')->textInput() ?>
 

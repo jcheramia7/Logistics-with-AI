@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 12, 2017 at 01:56 AM
+-- Generation Time: Aug 13, 2017 at 12:21 AM
 -- Server version: 5.7.18
 -- PHP Version: 7.1.7
 
@@ -36,6 +36,13 @@ CREATE TABLE `address` (
   `street_address` varchar(255) DEFAULT NULL,
   `street_address_2` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `address`
+--
+
+INSERT INTO `address` (`barangay_id`, `city_municipal_id`, `province_id`, `region_id`, `street_address`, `street_address_2`) VALUES
+('174', 2061, 188, 4, '', '');
 
 -- --------------------------------------------------------
 
@@ -783,6 +790,16 @@ CREATE TABLE `contact_number` (
   `contact_number` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `contact_number`
+--
+
+INSERT INTO `contact_number` (`id`, `contact_number`) VALUES
+(1, '+639261523128'),
+(2, '+639354811320'),
+(3, '+639288666292'),
+(4, '+639274869974');
+
 -- --------------------------------------------------------
 
 --
@@ -966,6 +983,16 @@ CREATE TABLE `personal` (
   `address_region_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `personal`
+--
+
+INSERT INTO `personal` (`id`, `first`, `middle`, `last`, `birth_month`, `birth_day`, `birth_year`, `sex`, `nationality`, `contact_number`, `address_barangay_id`, `address_city_municipal_id`, `address_province_id`, `address_region_id`) VALUES
+(1, 'Johanna Marisse', 'Credito', 'Heramia', 'December', 2, 1997, 'Female', 1, 1, '174', 2061, 188, 4),
+(2, 'Jose Lorenzo', 'Gonzales', 'Tadeo', 'March', 26, 1997, 'Male', 2, 2, '174', 2061, 188, 4),
+(3, 'Jana Marie', 'Gavarra', 'Gardon', 'January', 27, 1997, 'Female', 1, 3, '174', 2061, 188, 4),
+(4, 'Roselle Wednesday', NULL, 'Gardon', 'January', 1, 1997, 'Female', 2, 4, '174', 2061, 188, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -1106,7 +1133,8 @@ INSERT INTO `province` (`id`, `name`, `longitude`, `latitude`, `population`) VAL
 (184, 'Zambales', '120.25130000', '15.13390000', NULL),
 (185, 'Zamboanga Del Norte', '122.18890000', '7.02430000', NULL),
 (186, 'Zamboanga Del Sur', '123.34860000', '7.92080000', NULL),
-(187, 'Zamboanga Sibugay', '122.07900000', '6.92140000', NULL);
+(187, 'Zamboanga Sibugay', '122.07900000', '6.92140000', NULL),
+(188, 'Metro Manila', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1158,7 +1186,7 @@ CREATE TABLE `request` (
   `date_needed` varchar(45) DEFAULT NULL,
   `quantity` varchar(45) DEFAULT NULL,
   `description` text,
-  `tracking_number` int(11) DEFAULT NULL,
+  `tracking_number` varchar(12) DEFAULT NULL,
   `delivery_status` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `address_barangay_id` varchar(10) NOT NULL,
@@ -1166,6 +1194,16 @@ CREATE TABLE `request` (
   `address_province_id` int(11) NOT NULL,
   `address_region_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `request`
+--
+
+INSERT INTO `request` (`id`, `date_requested`, `date_needed`, `quantity`, `description`, `tracking_number`, `delivery_status`, `user_id`, `address_barangay_id`, `address_city_municipal_id`, `address_province_id`, `address_region_id`) VALUES
+(1, '08-12-17', '08-26-17', '520', NULL, 'TN1234567898', 1, 1, '174', 2061, 188, 4),
+(2, '08-12-17', '08-25-17', '200', NULL, 'TN8987654321', 3, 2, '174', 2061, 188, 4),
+(3, '08-12-17', '08-26-17', '35', NULL, 'NT128K5896PL', 2, 3, '174', 2061, 188, 4),
+(4, '08-12-17', '08-26-17', '89', NULL, 'MI1415820142', 4, 4, '174', 2061, 188, 4);
 
 -- --------------------------------------------------------
 
@@ -1262,6 +1300,62 @@ CREATE TABLE `supply` (
   `unit_of_measurement_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `supply`
+--
+
+INSERT INTO `supply` (`code`, `name`, `date_expiration`, `date_received`, `description`, `timestamp`, `supply_type`, `unit_of_measurement_id`) VALUES
+(58888555, 'Stick-O', '09-12-2025', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(79989798, 'Nissin Noodle', '09-12-2050', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(89411155, 'Mega Sardines', '09-12-2044', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(111111222, 'San Marino Corned Tuna', '09-12-2045', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(123212321, 'Shin Cup', '09-12-2052', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(123456789, 'Sky Flakes', '09-12-2020', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(154879623, 'CDO Luncheon Meat', '09-12-2039', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(212125256, 'Absolute Water', '09-12-2041', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(222255448, 'CDO Karne Norte', '09-12-2026', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(252412566, 'Jacket', '09-12-2067', '08-13-2017', NULL, '08-13-2017', 3, 9),
+(252525252, 'Young\'s Town Sardines', '09-12-2048', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(256352635, 'Blanket', '09-12-2069', '08-13-2017', NULL, '08-13-2017', 3, 9),
+(258596325, 'Nongshim Noodles', '09-12-2053', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(262635353, 'Saba Mackerel', '09-12-2049', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(287598516, 'Argentina Corned Beef', '09-12-2028', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(289746162, 'Hunt\'s Pork & Beans', '09-12-2042', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(322145699, 'Spam Luncheon Meat', '09-12-2034', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(332215489, 'Face Towel', '09-12-2065', '08-13-2017', NULL, '08-13-2017', 3, 9),
+(333333333, 'Highlands Corned Beef', '09-12-2027', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(357415968, 'Listerine', '09-12-2059', '08-13-2017', NULL, '08-13-2017', 7, 9),
+(363636363, 'Colgate Toothpaste', '09-12-2056', '08-13-2017', NULL, '08-13-2017', 7, 9),
+(363636565, 'Closeup Toothpaste', '09-12-2055', '08-13-2017', NULL, '08-13-2017', 7, 7),
+(373839343, 'Argentina Meatloaf', '09-12-2038', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(464656546, 'Lucky Me Pancit Canton', '09-12-2051', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(514728547, 'Colgate Dental Floss', '09-12-2058', '08-13-2017', NULL, '08-13-2017', 7, 9),
+(515687452, 'Oreo', '09-12-2023', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(517949496, 'Purefoods Luncheon Meat', '09-12-2036', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(518915982, 'Purefoods Corned Beef', '09-12-2029', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(526982318, 'Palm Corned Beef', '09-12-2030', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(532693939, 'King Cup Sardines', '09-12-2046', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(534915283, 'Century Tuna', '09-12-2043', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(541254796, 'Libby\'s Vienna Sausage', '09-12-2033', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(554478963, 'Purefoods Vienna Sausage', '09-12-2032', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(585858585, 'Mediplast Medicated Plaster', '09-12-2061', '08-13-2017', NULL, '08-13-2017', 9, 9),
+(589766233, 'Pork Luncheon Meat', '09-12-2035', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(616154585, '555 Sardines', '09-12-2047', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(621479525, 'Summit Mineral Water', '09-12-2040', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(685757896, 'Towel', '09-12-2066', '08-13-2017', NULL, '08-13-2017', 3, 9),
+(694158923, 'Presto', '09-12-2024', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(777711111, 'Absorbent Cotton', '09-12-2063', '08-13-2017', NULL, '08-13-2017', 9, 9),
+(779977997, 'Green Cross Alcohol', '09-12-2060', '08-13-2017', NULL, '08-13-2017', 9, 9),
+(828249163, 'Bingo Meatloaf', '09-12-2037', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(847951566, 'Lucky Me Noodle', '09-12-2054', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(885522669, 'Cotton t-shirt', '09-12-2064', '08-13-2017', NULL, '08-13-2017', 3, 9),
+(888888888, 'Bandaid Bandage', '09-12-2062', '08-13-2017', NULL, '08-13-2017', 9, 9),
+(896521793, 'Cream-O', '09-12-2022', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(959595956, 'Long Pants', '09-12-2068', '08-13-2017', NULL, '08-13-2017', 3, 9),
+(985418526, 'Fita', '09-12-2021', '08-13-2017', NULL, '08-13-2017', 1, 9),
+(989898797, 'Colgate Toothbrush', '09-12-2057', '08-13-2017', NULL, '08-13-2017', 7, 9),
+(999874563, 'Libby\'s Corned Beef', '09-12-2031', '08-13-2017', NULL, '08-13-2017', 1, 9);
+
 -- --------------------------------------------------------
 
 --
@@ -1343,6 +1437,7 @@ INSERT INTO `unit_of_measurement` (`id`, `name`) VALUES
 (1, 'meter (m)'),
 (6, 'Microgram'),
 (5, 'Milligram'),
+(9, 'N/A'),
 (8, 'Ounce'),
 (7, 'Pound'),
 (3, 'Tonne');
@@ -1373,7 +1468,8 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `user_type`) VALUES
 (1, 'jcheramia', 'X0-pESM2VklhTvovRuZhT06-qHOSENIo', '$2y$13$ec9/2/II0IIVEZd11MgluuuD6p7k/NPsKIB.o47qLfwDdssgH/p.C', NULL, 'johannaheramia@gmail.com', 10, '1502522295', '1502522295', 2),
 (2, 'jgtadeo', 'fe3Pugc_t3a21MPDFXrVtGTkyJdtlXed', '$2y$13$NkY8KCbAUWIH3quJ8RUjme5WriQz1bn9qJAWVcU7YwxgtdF3dPuI6', NULL, 'renzotadeo26@gmail.com', 10, '1502522548', '1502522548', 1),
-(3, 'jggardon', 'AMZuQXyBWCUFTzv4U4I5EE8wuT6BPlDL', '$2y$13$sRcQMXiqJvlNGai1r6wcQ.7u0xF0NyJCqvn9Fqa1nasKmIW0OX8ay', NULL, 'janamarie.gardon@gmail.com', 10, '1502522582', '1502522582', 3);
+(3, 'jggardon', 'AMZuQXyBWCUFTzv4U4I5EE8wuT6BPlDL', '$2y$13$sRcQMXiqJvlNGai1r6wcQ.7u0xF0NyJCqvn9Fqa1nasKmIW0OX8ay', NULL, 'janamarie.gardon@gmail.com', 10, '1502522582', '1502522582', 3),
+(4, 'rwgardon', '_UU5Y1hdiMHbiuru1Voq5xAWqTHtWd2n', '$2y$13$dVnujaukcejFFhRF05C0wu38OjNl3DL2QQe.x9FikxyieF5DIfaqa', NULL, 'rosellewednesday@gmail.com', 10, '1502602842', '1502602842', 5);
 
 -- --------------------------------------------------------
 
@@ -1398,6 +1494,16 @@ CREATE TABLE `user_info` (
   `user_id` int(11) NOT NULL,
   `personal_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_info`
+--
+
+INSERT INTO `user_info` (`user_id`, `personal_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -1446,6 +1552,62 @@ CREATE TABLE `vehicle` (
   `address_province_id` int(11) NOT NULL,
   `address_region_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `vehicle`
+--
+
+INSERT INTO `vehicle` (`plate_number`, `model`, `is_lease`, `timestamp`, `vehicle_category`, `vehicle_type`, `available_day`, `available_hour_start`, `available_hour_end`, `vehicle_size_id`, `address_barangay_id`, `address_city_municipal_id`, `address_province_id`, `address_region_id`) VALUES
+('AB-1234', 'Mitsubishi Pajero', 1, '12:20 PM', 3, 7, 'Monday', '9:00 AM', '5:00 PM', 5, '174', 2061, 188, 4),
+('ASD-123', 'Mitsubishi Canter Insulated?Reefer Van Truck', 1, '11:43 AM', 3, 27, 'Tuesday', '10:00 AM', '6:00 PM', 15, '174', 2061, 188, 4),
+('AZ-2468', 'Nissan?Titan XD', 1, '4:45 PM', 3, 14, 'Monday', '10:00 AM', '6:00 PM', 6, '174', 2061, 188, 4),
+('BC-1235', 'Mitsubishi Pajero', 1, '1:20 PM', 3, 7, 'Tuesday', '10:00 AM', '6:00 PM', 5, '174', 2061, 188, 4),
+('BNM-680', 'Fuso Fighter Dropside Truck 2008', 1, '1:55 PM', 3, 11, 'Tuesday', '5:00 AM', '1:00 PM', 16, '174', 2061, 188, 4),
+('CD-1236', 'Mitsubishi Pajero', 0, '2:20 PM', 3, 7, 'Wednesday', '11:00 AM', '7:00 PM', 5, '174', 2061, 188, 4),
+('DE-1237', 'Mitsubishi Pajero', 0, '3:20 PM', 3, 7, 'Thursday', '12:00 PM', '8:00 PM', 5, '174', 2061, 188, 4),
+('EF-1238', 'Mitsubishi Pajero', 1, '4:20 PM', 3, 7, 'Friday', '1:00 PM', '9:00 PM', 5, '174', 2061, 188, 4),
+('FG-1239', 'Mitsubishi Pajero', 0, '5:20 PM', 3, 7, 'Saturday', '2:00 PM', '10:00 PM', 5, '174', 2061, 188, 4),
+('FGH-789', 'Fuso Fighter Dropside Truck 2009', 0, '2:55 PM', 3, 11, 'Tuesday', '6:00 AM', '2:00 PM', 16, '174', 2061, 188, 4),
+('GH-1240', 'Toyota Hiace', 1, '6:20 PM', 3, 29, 'Monday', '3:00 PM', '11:00 PM', 11, '174', 2061, 188, 4),
+('HI-1241', 'Toyota Hiace', 1, '7:20 PM', 3, 29, 'Monday', '4:00 PM', '12:00 AM', 11, '174', 2061, 188, 4),
+('IJ-1242', 'Toyota Hiace', 1, '8:20 PM', 3, 29, 'Monday', '5:00 PM', '1:00 AM', 11, '174', 2061, 188, 4),
+('IOP-246', 'Mitsubishi Canter Insulated?Reefer Van Truck', 1, '5:15 PM', 3, 27, 'Monday', '7:00 AM', '3:00 PM', 15, '174', 2061, 188, 4),
+('JK-1243', 'Toyota Hiace', 0, '9:20 PM', 3, 29, 'Sunday', '6:00 PM', '2:00 AM', 11, '174', 2061, 188, 4),
+('KL-1244', 'Toyota Hiace', 0, '10:20 PM', 3, 29, 'Monday', '7:00 PM', '3:00 AM', 11, '174', 2061, 188, 4),
+('KLM-981', 'Fuso Fighter Dropside Truck 2004', 0, '9:55 AM', 3, 11, 'Monday', '1:00 AM', '9:00 AM', 16, '174', 2061, 188, 4),
+('LM-1245', 'Toyota Hiace', 1, '11:20 PM', 3, 29, 'Thursday', '8:00 PM', '4:00 AM', 11, '174', 2061, 188, 4),
+('MN-1246', 'Suzuki APV', 0, '10:12 AM', 3, 29, 'Thursday', '9:00 PM', '5:00 AM', 11, '174', 2061, 188, 4),
+('NN-2481', 'Isuzu Giga Wing Van Truck', 0, '7:16 AM', 3, 11, 'Thursday', '11:00 PM', '7:00 AM', 18, '174', 2061, 188, 4),
+('NO-1247', 'Suzuki APV', 1, '11:12 AM', 3, 29, 'Thursday', '10:00 PM', '6:00 AM', 11, '174', 2061, 188, 4),
+('OM-2480', 'Isuzu Giga Wing Van Truck', 0, '6:16 AM', 3, 11, 'Thursday', '10:00 PM', '6:00 AM', 18, '174', 2061, 188, 4),
+('OOD-220', 'Isuzu Giga Wing Van Truck', 1, '8:55 AM', 3, 11, 'Tuesday', '12:00 AM', '8:00 AM', 18, '174', 2061, 188, 4),
+('OP-1248', 'Suzuki APV', 1, '12:12 PM', 3, 29, 'Wednesday', '11:00 PM', '7:00 AM', 11, '174', 2061, 188, 4),
+('PL-2479', 'Isuzu Giga Wing Van Truck', 1, '5:16 AM', 3, 11, 'Thursday', '9:00 PM', '5:00 AM', 18, '174', 2061, 188, 4),
+('PQ-1249', 'Suzuki APV', 1, '1:12 PM', 3, 29, 'Wednesday', '12:00 AM', '8:00 AM', 11, '174', 2061, 188, 4),
+('QK-2478', 'Isuzu Giga Wing Van Truck', 1, '2:45 AM', 3, 11, 'Thursday', '8:00 PM', '4:00 AM', 18, '174', 2061, 188, 4),
+('QPZ-044', 'Fuso Fighter Dropside Truck 2006', 1, '11:55 AM', 3, 11, 'Tuesday', '3:00 AM', '11:00 AM', 16, '174', 2061, 188, 4),
+('QR-1250', 'Suzuki APV', 0, '2:12 PM', 3, 29, 'Wednesday', '1:00 AM', '9:00 AM', 11, '174', 2061, 188, 4),
+('QWE-098', 'Mitsubishi Canter Insulated?Reefer Van Truck', 1, '10:43 AM', 3, 27, 'Monday', '9:00 AM', '5:00 PM', 15, '174', 2061, 188, 4),
+('RGB-730', 'Fuso Fighter Dropside Truck 2005', 1, '10:55 AM', 3, 11, 'Monday', '2:00 AM', '10:00 AM', 16, '174', 2061, 188, 4),
+('RJ-2477', 'Isuzu Giga Wing Van Truck', 1, '1:45 AM', 3, 11, 'Tuesday', '7:00 PM', '3:00 AM', 18, '174', 2061, 188, 4),
+('RS-1251', 'Suzuki APV', 0, '3:12 PM', 3, 29, 'Tuesday', '2:00 AM', '10:00 AM', 11, '174', 2061, 188, 4),
+('SI-2476', '8.5 Metre Inflatable RIB', 1, '12:45 AM', 2, 28, 'Friday', '6:00 PM', '2:00 AM', 13, '174', 2061, 188, 4),
+('ST-1252', 'Nissan Frontier', 1, '4:12 PM', 3, 14, 'Tuesday', '3:00 AM', '11:00 AM', 6, '174', 2061, 188, 4),
+('TH-2475', '8.5 Metre Inflatable RIB', 1, '11:45 AM', 2, 28, 'Friday', '5:00 PM', '1:00 AM', 13, '174', 2061, 188, 4),
+('TU-1253', 'Nissan Frontier', 0, '5:12 PM', 3, 14, 'Friday', '4:00 AM', '12:00 PM', 6, '174', 2061, 188, 4),
+('TYU-105', 'Fuso Fighter Dropside Truck 2007', 1, '12:55 PM', 3, 11, 'Thursday', '4:00 AM', '12:00 PM', 16, '174', 2061, 188, 4),
+('UG-2474', '8.5 Metre Inflatable RIB', 1, '12:45 PM', 2, 28, 'Friday', '4:00 PM', '12:00 AM', 13, '174', 2061, 188, 4),
+('UV-1254', 'Nissan Frontier', 1, '6:12 PM', 3, 14, 'Thursday', '5:00 AM', '1:00 PM', 6, '174', 2061, 188, 4),
+('vF-2473', '8.5 Metre Inflatable RIB', 1, '2:45 PM', 2, 28, 'Sunday', '3:00 PM', '11:00 PM', 13, '174', 2061, 188, 4),
+('VW-1255', 'Nissan Frontier', 1, '7:12 PM', 3, 14, 'Thursday', '6:00 AM', '2:00 PM', 6, '174', 2061, 188, 4),
+('WE-2472', '8.5 Metre Inflatable RIB', 1, '8:45 AM', 2, 28, 'Sunday', '2:00 PM', '10:00 PM', 13, '174', 2061, 188, 4),
+('WX-1256', 'Nissan Frontier', 1, '8:12 PM', 3, 14, 'Saturday', '7:00 AM', '3:00 PM', 6, '174', 2061, 188, 4),
+('XD-2471', '8.5 Metre Inflatable RIB', 1, '7:45 AM', 2, 28, 'Sunday', '1:00 PM', '9:00 PM', 13, '174', 2061, 188, 4),
+('XY-1257', 'Nissan Frontier', 0, '9:12 PM', 3, 14, 'Saturday', '8:00 AM', '4:00 PM', 6, '174', 2061, 188, 4),
+('YC-2470', '8.5 Metre Inflatable RIB', 1, '6:45 PM', 2, 28, 'Monday', '12:00 PM', '8:00 PM', 13, '174', 2061, 188, 4),
+('YZ-1258', 'Nissan?Titan XD', 0, '3:45 PM', 3, 14, 'Monday', '9:00 AM', '5:00 PM', 6, '174', 2061, 188, 4),
+('ZB-2469', 'Nissan?Titan XD', 0, '5:45 PM', 3, 14, 'Monday', '11:00 AM', '7:00 PM', 6, '174', 2061, 188, 4),
+('ZXC-456', 'Mitsubishi Canter Insulated?Reefer Van Truck', 1, '6:15 PM', 3, 27, 'Monday', '8:00 AM', '4:00 PM', 15, '174', 2061, 188, 4);
 
 -- --------------------------------------------------------
 
@@ -1497,7 +1659,14 @@ INSERT INTO `vehicle_size` (`id`, `name`, `timestamp`, `description`) VALUES
 (8, 'Intermediate Utility', NULL, '6 Cylinder; Avg MPG = 15'),
 (9, 'Full-Size Utility', NULL, '8 Cylinder; Avg MPG = 13'),
 (10, 'Mini-Van', NULL, '6 Cylinder; Avg MPG = 17'),
-(11, 'Full-Size Van', NULL, '6 Cylinder; Avg MPG = 13');
+(11, 'Full-Size Van', NULL, '6 Cylinder; Avg MPG = 13'),
+(12, 'Small Boat', NULL, 'Standard Width: 8\' ||\r\nStandard Length: 12\',13\',14\',15\',16\',18\',19\' ||\r\nStandard Pontoon Diameter: 24\", 26\" ||\r\n Number of Pontoons: 2'),
+(13, 'Medium Boat', NULL, 'Standard Width: 8\', 8.5\',10\' ||\r\nStandard Length: 20\', 25\', 30\', 35\', 40\' ||\r\nStandard Pontoon Diameter: 24\", 26\", 28\", 30\", 33\", 36\" ||\r\nNumber of Pontoons: 2 optional 3'),
+(14, 'Large', NULL, 'Standard Width: 12\', 14\', 16\', 18\', 20\' ||\r\nStandard Length: 30\', 35\', 40\', 45\', 50\', 55\', 60\' ||\r\nStandard Pontoon Diameter: 30\", 33\", 36\", \r\n39\", 42\", 45\", 48\", 51\", 54\", 57\", 60\" ||\r\nNumber of Pontoons: 2 optional 3'),
+(15, 'Small Truck (10-13 ft)', NULL, '1-3000lbs\r\n400-450 cubic feet\r\nMoving 1-5 Furniture items\r\nUp to 120 medium size boxes\r\n\r\nIntended for: Studio/Small 1 bed apartments (400-800 sqft)'),
+(16, 'Medium Truck (14-17 ft)', NULL, '3000-5500 lbs\r\n650-850 cubic feet\r\nMoving 1-10 furniture items\r\nUp to 250 medium size boxes\r\n\r\nIntended for: 1-3 bedroom apartments (600-1200 sqft),\r\nSmall 1-2 bedroom houses (600-1200 sqft)'),
+(17, 'Large Truck (18-24 ft)', NULL, '5500-6500 lbs\r\n900-1400 cubic feet\r\nUp to 450 medium size boxes\r\n\r\nIntended for: 3-4 bedrooms (1200-2400 sqft)'),
+(18, 'X Large Truck (26+ ft)', NULL, '6500-8400 lbs\r\n1400-1500 cubic feet\r\nUp to 550 medium size boxes\r\n\r\nIntended for: 4+ bedrooms (2400+ sq ft)');
 
 -- --------------------------------------------------------
 
@@ -1542,7 +1711,10 @@ INSERT INTO `vehicle_type` (`id`, `name`, `timestamp`, `description`) VALUES
 (23, 'Helicopter', '08-07-2017', NULL),
 (24, 'Terex', '08-07-2017', NULL),
 (25, 'Tank', '08-07-2017', NULL),
-(26, 'Boat', '08-07-2017', NULL);
+(26, 'Boat', '08-07-2017', NULL),
+(27, 'Refrigerated', NULL, NULL),
+(28, 'Inflatable', NULL, NULL),
+(29, 'Van', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1990,7 +2162,7 @@ ALTER TABLE `city_municipal`
 -- AUTO_INCREMENT for table `contact_number`
 --
 ALTER TABLE `contact_number`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `delivery_status`
 --
@@ -2030,7 +2202,7 @@ ALTER TABLE `legal_structure`
 -- AUTO_INCREMENT for table `personal`
 --
 ALTER TABLE `personal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `primary_commodity`
 --
@@ -2040,7 +2212,7 @@ ALTER TABLE `primary_commodity`
 -- AUTO_INCREMENT for table `province`
 --
 ALTER TABLE `province`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=189;
 --
 -- AUTO_INCREMENT for table `region`
 --
@@ -2050,7 +2222,7 @@ ALTER TABLE `region`
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
@@ -2065,7 +2237,7 @@ ALTER TABLE `supplier_type`
 -- AUTO_INCREMENT for table `supply`
 --
 ALTER TABLE `supply`
-  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `code` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=999874564;
 --
 -- AUTO_INCREMENT for table `supply_type`
 --
@@ -2075,12 +2247,12 @@ ALTER TABLE `supply_type`
 -- AUTO_INCREMENT for table `unit_of_measurement`
 --
 ALTER TABLE `unit_of_measurement`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user_type`
 --
@@ -2095,12 +2267,12 @@ ALTER TABLE `vehicle_category`
 -- AUTO_INCREMENT for table `vehicle_size`
 --
 ALTER TABLE `vehicle_size`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `vehicle_type`
 --
 ALTER TABLE `vehicle_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `warehouse`
 --
