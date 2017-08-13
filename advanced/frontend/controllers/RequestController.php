@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Request;
 use common\models\RequestSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,19 @@ class RequestController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => [
+                            'logout', 'index', 'create', 'update', 'view',
+                            'intransit', 'arrived', 'calendar', 'confirmed', 'delete', 'confirmation', 'intransiting', 'arriving',
+                            'list_vehicle', 'generateUniqueRandomString'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -37,6 +51,7 @@ class RequestController extends Controller
     {
         $searchModel = new RequestSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['delivery_status'=>'1']);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -66,7 +81,10 @@ class RequestController extends Controller
     {
         $model = new Request();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->delivery_status = '1';
+            //$model->tracking_number = Yii::$app->security->generateRandomString($length = 12);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id, 'user_id' => $model->user_id]);
         } else {
             return $this->render('create', [
@@ -74,6 +92,7 @@ class RequestController extends Controller
             ]);
         }
     }
+
 
     /**
      * Updates an existing Request model.
@@ -125,4 +144,91 @@ class RequestController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionConfirmation($id, $user_id)
+    {
+        $model = $this->findModel($id, $user_id);
+        $model->scenario = 'confirmation';
+
+        $model->load(Yii::$app->request->post());
+        $model->delivery_status = '2';
+        $model->save();
+        return $this->redirect(['index']);
+
+    }
+
+    public function actionIntransiting($id, $user_id)
+    {
+        $model = $this->findModel($id, $user_id);
+        $model->scenario = 'intransiting';
+
+        $model->load(Yii::$app->request->post());
+        $model->delivery_status = '3';
+        $model->save();
+        return $this->redirect(['confirmed']);
+    }
+
+    public function actionArriving($id, $user_id)
+    {
+        $model = $this->findModel($id, $user_id);
+        $model->scenario = 'arriving';
+
+        $model->load(Yii::$app->request->post());
+        $model->delivery_status = '4';
+        $model->save();
+        return $this->redirect(['intransit']);
+    }
+
+    /**
+     * Lists all Request models.
+     * @return mixed
+     */
+    public function actionIntransit()
+    {
+        $searchModel = new RequestSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['delivery_status'=>'3']);
+
+        return $this->render('intransit', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists all Request models.
+     * @return mixed
+     */
+    public function actionArrived()
+    {
+        $searchModel = new RequestSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['delivery_status'=>'4']);
+
+        return $this->render('arrived', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionConfirmed()
+    {
+        $searchModel = new RequestSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['delivery_status'=>'2']);
+
+        return $this->render('confirmed', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionCancel($id, $user_id)
+    {
+        return $this->render('index', [
+            'model' => $this->findModel($id, $user_id),
+        ]);
+    }
+
+
 }

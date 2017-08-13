@@ -33,7 +33,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'contact_number')->textInput() ?>
 
-    <?= $form->field($model, 'address_barangay_id')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'address_barangay_id')->dropDownList(
         ArrayHelper::map(Address::find()->all(), 'id', 'name'),
         [

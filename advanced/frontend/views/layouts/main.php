@@ -301,7 +301,6 @@ AppAsset::register($this);
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="index.php?r=vehicle"><i class="fa fa-circle-o"></i> Heavy Equipments</a></li>
                         <li><a href="index.php?r=vehicle/air"><i class="fa fa-circle-o"></i> Air</a></li>
                         <li><a href="index.php?r=vehicle/sea"><i class="fa fa-circle-o"></i> Sea</a></li>
                         <li><a href="index.php?r=vehicle/road"><i class="fa fa-circle-o"></i> Land</a></li>

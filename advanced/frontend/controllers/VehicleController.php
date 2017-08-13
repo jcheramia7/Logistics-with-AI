@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use common\models\Vehicle;
 use common\models\VehicleSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -20,6 +21,16 @@ class VehicleController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['logout', 'index', 'create', 'update', 'view', 'air', 'sea'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -37,8 +48,33 @@ class VehicleController extends Controller
     {
         $searchModel = new VehicleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['vehicle_category'=>'3']);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionSea()
+    {
+        $searchModel = new VehicleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['vehicle_category'=>'2']);
+
+        return $this->render('sea', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionAir()
+    {
+        $searchModel = new VehicleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andFilterWhere(['vehicle_category'=>'1']);
+
+        return $this->render('air', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
