@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 13, 2017 at 12:21 AM
+-- Generation Time: Aug 13, 2017 at 12:57 PM
 -- Server version: 5.7.18
 -- PHP Version: 7.1.7
 
@@ -61,7 +61,10 @@ CREATE TABLE `auth_assignment` (
 --
 
 INSERT INTO `auth_assignment` (`created_at`, `user_id`, `item_name`) VALUES
-(NULL, 1, 'Super User');
+(NULL, 1, 'Super User'),
+(NULL, 2, 'Volunteer'),
+(NULL, 3, 'Barangay'),
+(NULL, 4, 'Regional');
 
 -- --------------------------------------------------------
 
@@ -798,7 +801,9 @@ INSERT INTO `contact_number` (`id`, `contact_number`) VALUES
 (1, '+639261523128'),
 (2, '+639354811320'),
 (3, '+639288666292'),
-(4, '+639274869974');
+(4, '+639274869974'),
+(5, '+02122346'),
+(6, '+02336699');
 
 -- --------------------------------------------------------
 
@@ -1200,10 +1205,13 @@ CREATE TABLE `request` (
 --
 
 INSERT INTO `request` (`id`, `date_requested`, `date_needed`, `quantity`, `description`, `tracking_number`, `delivery_status`, `user_id`, `address_barangay_id`, `address_city_municipal_id`, `address_province_id`, `address_region_id`) VALUES
-(1, '08-12-17', '08-26-17', '520', NULL, 'TN1234567898', 1, 1, '174', 2061, 188, 4),
+(1, '08-12-17', '08-26-17', '520', NULL, 'TN1234567898', 4, 1, '174', 2061, 188, 4),
 (2, '08-12-17', '08-25-17', '200', NULL, 'TN8987654321', 3, 2, '174', 2061, 188, 4),
 (3, '08-12-17', '08-26-17', '35', NULL, 'NT128K5896PL', 2, 3, '174', 2061, 188, 4),
-(4, '08-12-17', '08-26-17', '89', NULL, 'MI1415820142', 4, 4, '174', 2061, 188, 4);
+(4, '08-12-17', '08-26-17', '89', NULL, 'MI1415820142', 4, 4, '174', 2061, 188, 4),
+(5, '08/14/2017', '08/15/2017', '1', '', 'NT1221111112', 1, 3, '174', 2061, 188, 4),
+(6, '08/29/2017', '09/01/2017', '12', '', 'MO2478491526', 3, 3, '174', 2061, 188, 4),
+(7, '08/16/2017', '08/25/2017', '11', '', 'JM6794621587', 3, 3, '174', 2061, 188, 4);
 
 -- --------------------------------------------------------
 
@@ -1245,6 +1253,32 @@ CREATE TABLE `supplier` (
   `legal_structure_id` int(11) NOT NULL,
   `primary_commodity_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `supplier`
+--
+
+INSERT INTO `supplier` (`id`, `name`, `email`, `website`, `contact_person`, `timestamp`, `principal_name`, `principal_title`, `business_number_of_year`, `description`, `supplier_type`, `legal_structure_id`, `primary_commodity_id`) VALUES
+(1, 'Supplier 1', 'koriricruc@qwfox.com', 'sample1web.com', 'Jemi', NULL, 'Boss 1', 'CEO', 10, NULL, 3, 6, 5),
+(2, 'Supplier 2', 'pametretra@hvzoi.com', 'supply1.com.ph', 'Jola', NULL, 'Boss 2', 'President', 10, NULL, 7, 2, 18),
+(3, 'Supplier 3', 'ariana.g@gmail.com', 'supplierofdamit2.com', 'Hola', NULL, 'Boss 3', 'CEO', 11, NULL, 6, 10, 7),
+(4, 'Supplier 4', 'trysample@ksks.com', 'kilokilo0.com', 'Heya', NULL, 'Boss 4', 'President', 25, NULL, 1, 4, 16),
+(5, 'Supplier 5', 'wowamazing.rr@koko.com', 'magandtoh.com', 'Keopi', NULL, 'Boss 5', 'CEO', 1, NULL, 2, 2, 1),
+(6, 'Supplier 6', 'hahahaha@hehe.com', 'masarapfood.com', 'Joyami', NULL, 'Boss 6', 'President', 3, NULL, 3, 3, 25),
+(7, 'Supplier 7', 'Sisososos@momo.com', 'wowdi2.com', 'Jinggie', NULL, 'Boss 7', 'CEO', 6, NULL, 1, 3, 22),
+(8, 'Supplier 8', 'Walang@forever.com', 'puntakana.com.ph', 'Roberto', NULL, 'Boss 8', 'President', 8, NULL, 2, 10, 22),
+(9, 'Supplier 9', 'walang@kayo.ph', 'trymorin.com', 'Rodolfo', NULL, 'Boss 9', 'CEO', 23, NULL, 2, 3, 15),
+(10, 'Supplier 10', 'jo@hana.com', 'magandangser.com', 'Ricardo', NULL, 'Boss 10', 'President', 3, NULL, 6, 6, 17),
+(11, 'Supplier 11', 'sige@oo.com', 'bilinapo.com', 'Oldarrico', NULL, 'Boss 11', 'CEO', 7, NULL, 4, 2, 2),
+(12, 'Supplier 12', 'iajsansjdvn@yahoo.com', 'damitlang.com', 'Rick', NULL, 'Boss 12', 'President', 30, NULL, 4, 9, 23),
+(13, 'Supplier 13', 'ldr@wawawa.ph', 'shortlang.com', 'Compowa', NULL, 'Boss 13', 'CEO', 24, NULL, 2, 2, 9),
+(14, 'Supplier 14', 'jimcas@tull.com', 'bagnarin.com', 'Chuga', NULL, 'Boss 14', 'President', 20, NULL, 5, 3, 10),
+(15, 'Supplier 15', 'love@mosha.com', 'mapawow.com', 'Chiga', NULL, 'Boss 15', 'CEO', 22, NULL, 6, 7, 3),
+(16, 'Supplier 16', 'dika@mahal.com.ph', 'bililangpokau.com.ph', 'Kokey', NULL, 'Boss 16', 'President', 19, NULL, 6, 8, 10),
+(17, 'Supplier 17', 'try.mo.to@yahoo.com', 'oraytzzz.com', 'Lambdam', NULL, 'Boss 17', 'CEO', 18, NULL, 7, 3, 3),
+(18, 'Supplier 18', 'oli@jojo.com', 'busogkadito.com', 'Madam', NULL, 'Boss 18', 'CEO', 17, NULL, 3, 7, 10),
+(19, 'Supplier 19', 'iddi@kol.com', 'librelang.com', 'Ester', NULL, 'Boss 19', 'President', 16, NULL, 7, 2, 9),
+(20, 'Supplier 20', 'shaman@shap.com', 'alisnau.com', 'Kempoy', NULL, 'Boss 20', 'CEO', 14, NULL, 3, 7, 12);
 
 -- --------------------------------------------------------
 
@@ -1741,6 +1775,18 @@ CREATE TABLE `warehouse` (
   `address_region_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `warehouse`
+--
+
+INSERT INTO `warehouse` (`id`, `name`, `contact_person_name`, `year_established`, `description`, `area`, `timestamp`, `open_hours`, `close_hours`, `open_day`, `warehouse_type_id`, `warehouse_category_id`, `address_barangay_id`, `address_city_municipal_id`, `address_province_id`, `address_region_id`) VALUES
+(1, 'Warehous A', 'Person 1', 1997, NULL, NULL, NULL, NULL, NULL, NULL, 1, 3, '174', 2061, 188, 4),
+(2, 'Warehouse B', 'Person 2', 2014, NULL, NULL, NULL, '8:00 AM', '8:00 PM', NULL, 1, 9, '174', 2061, 188, 4),
+(3, 'Warehouse C', 'Person 3', 2013, NULL, NULL, NULL, '9:00 AM', '8:00 PM', NULL, 1, 10, '174', 2061, 188, 4),
+(4, 'Warehouse D', 'Person 5', 2001, NULL, NULL, NULL, '10:00 AM', '10:00 PM', NULL, 1, 5, '174', 2061, 188, 4),
+(5, 'Warehouse E', 'Person 7', 2000, NULL, NULL, NULL, '10:00 AM', '8:00 PM', NULL, 1, 6, '174', 2061, 188, 4),
+(6, 'Warehouse F', 'Person 9', 1998, NULL, NULL, NULL, NULL, NULL, NULL, 1, 7, '174', 2061, 188, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -1796,6 +1842,13 @@ CREATE TABLE `warehouse_type` (
   `timestamp` varchar(45) DEFAULT NULL,
   `description` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `warehouse_type`
+--
+
+INSERT INTO `warehouse_type` (`id`, `name`, `timestamp`, `description`) VALUES
+(1, 'sample', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -1963,6 +2016,7 @@ ALTER TABLE `region`
 ALTER TABLE `request`
   ADD PRIMARY KEY (`id`,`user_id`),
   ADD UNIQUE KEY `id_UNIQUE` (`id`),
+  ADD UNIQUE KEY `tracking_number` (`tracking_number`),
   ADD KEY `fk_request_delivery_status1_idx` (`delivery_status`),
   ADD KEY `fk_request_user_info1_idx` (`user_id`),
   ADD KEY `fk_request_address1_idx` (`address_barangay_id`,`address_city_municipal_id`,`address_province_id`,`address_region_id`);
@@ -2162,7 +2216,7 @@ ALTER TABLE `city_municipal`
 -- AUTO_INCREMENT for table `contact_number`
 --
 ALTER TABLE `contact_number`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `delivery_status`
 --
@@ -2222,12 +2276,12 @@ ALTER TABLE `region`
 -- AUTO_INCREMENT for table `request`
 --
 ALTER TABLE `request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `supplier_type`
 --
@@ -2277,7 +2331,7 @@ ALTER TABLE `vehicle_type`
 -- AUTO_INCREMENT for table `warehouse`
 --
 ALTER TABLE `warehouse`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `warehouse_category`
 --
@@ -2287,7 +2341,7 @@ ALTER TABLE `warehouse_category`
 -- AUTO_INCREMENT for table `warehouse_type`
 --
 ALTER TABLE `warehouse_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
