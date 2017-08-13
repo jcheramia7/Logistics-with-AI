@@ -36,12 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            'tracking_number',
             'date_requested',
             'date_needed',
             'quantity',
-            // 'description:ntext',
-            'tracking_number',
             'delivery_status',
             'user_id',
             // 'address_barangay_id',

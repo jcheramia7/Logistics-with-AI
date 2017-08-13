@@ -27,7 +27,7 @@ class RequestController extends Controller
                     [
                         'actions' => [
                             'logout', 'index', 'create', 'update', 'view',
-                            'intransit', 'arrived', 'calendar', 'confirmed', 'delete', 'confirmation', 'intransiting', 'arriving',
+                            'confirmed', 'intransit', 'arrived', 'delete', 'confirmation', 'intransiting', 'arriving',
                             'list_vehicle', 'generateUniqueRandomString'],
                         'allow' => true,
                         'roles' => ['@'],

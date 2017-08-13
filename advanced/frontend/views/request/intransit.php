@@ -8,7 +8,7 @@ use yii\helpers\Url;
 /* @var $searchModel common\models\RequestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Requests';
+$this->title = 'In-transit Requests';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="request-index">
@@ -25,27 +25,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
+            'tracking_number',
             'date_requested',
             'date_needed',
             'quantity',
             'description:ntext',
-            'tracking_number',
             'delivery_status',
             'user_id',
             // 'address_barangay_id',
             // 'address_city_municipal_id',
             // 'address_province_id',
             // 'address_region_id',
-
             [
+
                 'format' => 'raw',
                 'value' => function($model) {
                     return Html::a(
                         '<b>Arrived</b>',
-                        Url::to(['request/arriving', 'id' => $model->id]),
+                        Url::to(['request/arriving', 'id' => $model->id, 'user_id' => $model->user_id]),
                         [
                             'id'=>'grid-custom-button',
+                            'data-pjax'=>true,
                             'action'=>Url::to(['request/arriving', 'id' => $model->id, 'user_id' => $model->user_id]),
                             'class'=>'button btn-sm btn-primary',
                         ]

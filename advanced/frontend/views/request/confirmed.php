@@ -17,17 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php
-    Modal::begin([
-        'id'=> 'modal',
-        'size' => 'modal-xs',
-    ]);
-
-    echo "<div id='modalContent'></div>";
-
-    Modal::end();
-    ?>
-
     <p>
         <?= Html::a('Create Request', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -50,14 +39,18 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'address_province_id',
             // 'address_region_id',
 
+
             [
+
                 'format' => 'raw',
                 'value' => function($model) {
-                    return Html::button(
+                    return Html::a(
                         '<b>Send</b>',
+                        Url::to(['request/intransiting', 'id' => $model->id, 'user_id' => $model->user_id]),
                         [
-                            'value' => Url::to(['request/updatereply', 'id' => $model->id, 'user_id' => $model->user_id]),
-                            'id'=>'modalButton',
+                            'id'=>'grid-custom-button',
+                            'data-pjax'=>true,
+                            'action'=>Url::to(['request/intransiting', 'id' => $model->id, 'user_id' => $model->user_id]),
                             'class'=>'button btn-sm btn-primary',
                         ]
                     );

@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\VehicleSizeSearch */
+/* @var $searchModel common\models\VehicleSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Vehicle Sizes';
+$this->title = 'Sea Category';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="vehicle-size-index">
+<div class="vehicle-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Vehicle Size', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Vehicle', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -24,10 +24,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
+            'plate_number',
+            'model',
+            'is_lease',
             'timestamp',
-            'description:ntext',
+            'vehicle_category',
+            // 'vehicle_type',
+            // 'available_day',
+            // 'available_hour_start',
+            // 'available_hour_end',
+            // 'vehicle_size_id',
+            // 'address_barangay_id',
+            // 'address_city_municipal_id',
+            // 'address_province_id',
+            // 'address_region_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

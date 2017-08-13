@@ -244,33 +244,7 @@ AppAsset::register($this);
                 ?>
 
                 </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-shopping-basket"></i>
-                        <span>Items</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="index.php?r=supply/agriculture"><i class="fa fa-circle-o"></i> Agriculture</a></li>
-                        <li><a href="index.php?r=supply/buildingmaterials"><i class="fa fa-circle-o"></i> Building Materials</a></li>
-                        <li><a href="index.php?r=supply/clothingtextile"><i class="fa fa-circle-o"></i> Clothings/Textile</a></li>
-                        <li><a href="index.php?r=supply/equipmenttools"><i class="fa fa-circle-o"></i> Equipment & Tools</a></li>
-                        <li><a href="index.php?r=supply/fooditems"><i class="fa fa-circle-o"></i> Food items</a></li>
-                        <li><a href="index.php?r=supply/fuel"><i class="fa fa-circle-o"></i> Fuel</a></li>
-                        <li><a href="index.php?r=supply/housewaresupplies"><i class="fa fa-circle-o"></i> Houseware Supplies</a></li>
-                        <li><a href="index.php?r=supply/kidssupplies"><i class="fa fa-circle-o"></i> Kids Supplies</a></li>
-                        <li><a href="index.php?r=supply/medicalequipmentsupplies"><i class="fa fa-circle-o"></i> Medical Equipment/Supplies</a></li>
-                        <li><a href="index.php?r=supply/services"><i class="fa fa-circle-o"></i> Services</a></li>
-                        <li><a href="index.php?r=supply/electricalsuppliessurvival"><i class="fa fa-circle-o"></i> Electrical Supplies/Survival</a></li>
-                        <li><a href="index.php?r=supply/sleepinggear"><i class="fa fa-circle-o"></i> Sleeping Gear</a></li>
-                        <li><a href="index.php?r=supply/sportsrecreation"><i class="fa fa-circle-o"></i> Sports/Recreation</a></li>
-                        <li><a href="index.php?r=supply/wash"><i class="fa fa-circle-o"></i> WaSH</a></li>
-                        <li><a href="index.php?r=supply/others"><i class="fa fa-circle-o"></i> Others</a></li>
-
-                    </ul>
-                </li>
+                <li><a href="index.php?r=supply"><i class="fa fa-shopping-basket"></i> <span>Supply</span></a></li>
 
 
                 <li class="treeview">
@@ -286,10 +260,7 @@ AppAsset::register($this);
                             '<li><a href="index.php?r=supply/expirationreport"><i class="fa fa-circle-o"></i> Expiration Report</a></li>';
                         ?>
                         <li><a href="index.php?r=request/calendar"><i class="fa fa-circle-o"></i> Calendar</a></li>
-                        <?php if(Yii::$app->user->can('Super User') || Yii::$app->user->can('Barangay') || Yii::$app->user->can('City/Municipal') || Yii::$app->user->can('Regional') || Yii::$app->user->can('Provincial'))
-                            echo
-                            '<li><a href="index.php?r=supply/incomingsupply"><i class="fa fa-circle-o"></i> Incoming Supplies</a></li>';
-                        ?>
+
                     </ul>
                 </li>
 
@@ -303,7 +274,7 @@ AppAsset::register($this);
                     <ul class="treeview-menu">
                         <li><a href="index.php?r=vehicle/air"><i class="fa fa-circle-o"></i> Air</a></li>
                         <li><a href="index.php?r=vehicle/sea"><i class="fa fa-circle-o"></i> Sea</a></li>
-                        <li><a href="index.php?r=vehicle/road"><i class="fa fa-circle-o"></i> Land</a></li>
+                        <li><a href="index.php?r=vehicle/"><i class="fa fa-circle-o"></i> Land</a></li>
                     </ul>
                 </li>
 
@@ -338,7 +309,6 @@ AppAsset::register($this);
                         <li><a href="index.php?r=volunteer"><i class="fa fa-circle-o"></i>Volunteers</a></li>
                         <li><a href="index.php?r=supplier"><i class="fa fa-circle-o"></i>Supplier</a></li>
                         <li><a href="index.php?r=disaster-site"><i class="fa fa-circle-o"></i>Disaster site</a></li>
-                        <li><a href="index.php?r=population"><i class="fa fa-circle-o"></i>Affected Area/Population</a></li>
                         <li><a href="index.php?r=barangay"><i class="fa fa-circle-o"></i>Barangay</a></li>
                         <li><a href="index.php?r=city-municipal"><i class="fa fa-circle-o"></i>City / Municipal</a></li>
                         <li><a href="index.php?r=province"><i class="fa fa-circle-o"></i>Province</a></li>
@@ -352,22 +322,8 @@ AppAsset::register($this);
                 <?php
                 if(Yii::$app->user->can('Super User') || Yii::$app->user->can('Barangay') || Yii::$app->user->can('City/Municipal') || Yii::$app->user->can('Regional') || Yii::$app->user->can('Provincial')) {
                     echo '
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-heartbeat"></i>
-                        <span>Donation</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="index.php?r=donation/donor"><i class="fa fa-circle-o"></i>Donor</a></li>
-                        <li><a href="index.php?r=donation"><i class="fa fa-circle-o"></i>List of Donation</a></li>
-                    </ul>
-                </li>';
+                <li><a href="index.php?r=donation"><i class="fa fa-heartbeat"></i> <span>Donation</span></a></li>';
                 }?>
-
-                <li><a href="index.php"><i class="fa fa-book"></i> <span>Manual</span></a></li>
 
             </ul>
         </section>

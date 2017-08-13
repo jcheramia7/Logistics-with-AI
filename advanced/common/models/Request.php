@@ -51,7 +51,7 @@ class Request extends \yii\db\ActiveRecord
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => UserInfo::className(), 'targetAttribute' => ['user_id' => 'user_id']],
             [['delivery_status'], 'required', 'on' => 'confirmation'],
             [['delivery_status'], 'required', 'on' => 'intransiting'],
-            [['delivery_status'], 'required', 'on' => 'delivering'],
+            [['delivery_status'], 'required', 'on' => 'arriving'],
         ];
     }
 
