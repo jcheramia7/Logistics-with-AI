@@ -81,6 +81,7 @@ class RequestController extends Controller
     {
         $model = new Request();
 
+
         if ($model->load(Yii::$app->request->post()) ) {
             $model->delivery_status = '1';
             //$model->tracking_number = Yii::$app->security->generateRandomString($length = 12);

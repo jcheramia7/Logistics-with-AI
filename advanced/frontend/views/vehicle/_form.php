@@ -1,5 +1,10 @@
 <?php
 
+use common\models\Address;
+use common\models\VehicleCategory;
+use common\models\VehicleSize;
+use common\models\VehicleType;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -16,13 +21,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'model')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'is_lease')->textInput() ?>
-
     <?= $form->field($model, 'timestamp')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'vehicle_category')->textInput() ?>
+    <?= $form->field($model, 'vehicle_category')->dropDownList(
+        ArrayHelper::map(VehicleCategory::find()->all(), 'id', 'name'),
+        [
+            'prompt' => 'Select Category',
 
-    <?= $form->field($model, 'vehicle_type')->textInput() ?>
+        ]);?>
+
+    <?= $form->field($model, 'vehicle_type')->dropDownList(
+        ArrayHelper::map(VehicleType::find()->all(), 'id', 'name'),
+        [
+            'prompt' => 'Select Type',
+
+        ]);?>
 
     <?= $form->field($model, 'available_day')->dropDownList([ 'Monday' => 'Monday', 'Tuesday' => 'Tuesday', 'Wednesday' => 'Wednesday', 'Thursday' => 'Thursday', 'Friday' => 'Friday', 'Saturday' => 'Saturday', 'Sunday' => 'Sunday', ], ['prompt' => '']) ?>
 
@@ -30,11 +43,27 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'available_hour_end')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'vehicle_size_id')->textInput() ?>
+    <?= $form->field($model, 'vehicle_size_id')->dropDownList(
+        ArrayHelper::map(VehicleSize::find()->all(), 'id', 'name'),
+        [
+            'prompt' => 'Select Size',
 
-    <?= $form->field($model, 'address_barangay_id')->textInput(['maxlength' => true]) ?>
+        ]);?>
+
+    <?= $form->field($model, 'address_barangay_id')->dropDownList(
+        ArrayHelper::map(Address::find()->all(), 'barangay_id', 'barangay_id'),
+        [
+            'prompt' => 'Select Address',
+
+        ]);?>
 
     <?= $form->field($model, 'address_city_municipal_id')->textInput() ?>
+    <?= $form->field($model, 'address_city_municipal_id')->dropDownList(
+        ArrayHelper::map(Address::find()->all(), 'city_municipal_id', 'city_municipal_id'),
+        [
+            'prompt' => 'Select City/Municipal',
+
+        ]);?>
 
     <?= $form->field($model, 'address_province_id')->textInput() ?>
 

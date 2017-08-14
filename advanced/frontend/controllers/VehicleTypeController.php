@@ -44,6 +44,8 @@ class VehicleTypeController extends Controller
         ]);
     }
 
+
+
     /**
      * Displays a single VehicleType model.
      * @param integer $id

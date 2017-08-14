@@ -9,7 +9,6 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
 /**
  * VehicleController implements the CRUD actions for Vehicle model.
  */
@@ -25,7 +24,7 @@ class VehicleController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['logout', 'index', 'create', 'update', 'view', 'air', 'sea'],
+                        'actions' => ['logout', 'index', 'create', 'update', 'view', 'air', 'sea', 'sms', 'send'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -80,6 +79,23 @@ class VehicleController extends Controller
         ]);
     }
 
+    public function actionSms()
+    {
+        $searchModel = new VehicleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('sms', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionSend()
+    {
+
+    }
+
+
     /**
      * Displays a single Vehicle model.
      * @param string $id
@@ -101,7 +117,13 @@ class VehicleController extends Controller
     {
         $model = new Vehicle();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if(Yii::$app->user->identity->getId() == '1'){
+                $model->is_lease = '1';
+            }else{
+                $model->is_lease = '0';
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->plate_number]);
         } else {
             return $this->render('create', [
